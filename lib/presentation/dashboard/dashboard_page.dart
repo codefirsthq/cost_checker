@@ -1,3 +1,4 @@
+import 'package:cost_checker/presentation/origin_city/origin_city_page.dart';
 import 'package:flutter/material.dart';
 
 class DashboardPage extends StatefulWidget {
@@ -31,7 +32,10 @@ class _DashboardPageState extends State<DashboardPage> {
                 width: double.infinity,
                 height: 45,
                 child: ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => OriginCityPage()));
+                  },
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisAlignment: MainAxisAlignment.center,
