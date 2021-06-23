@@ -1,3 +1,4 @@
+import 'package:cost_checker/infrastructure/rajaongkir/rajaongkir_repository.dart';
 import 'package:cost_checker/presentation/destination_city/destination_city_page.dart';
 import 'package:flutter/material.dart';
 
@@ -10,6 +11,17 @@ class OriginCityPage extends StatefulWidget {
 
 class _OriginCityPageState extends State<OriginCityPage> {
   List<String> dataList = ["1", "2", "3", "4"];
+
+  @override
+  void initState() {
+    super.initState();
+    RajaongkirRepository()
+        .getProvinceData()
+        .then((value) => print(value.results!.length))
+        .catchError((e) {
+      print(e);
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
