@@ -1,5 +1,7 @@
+import 'package:cost_checker/domain/city/city_data_model.dart';
 import 'package:cost_checker/domain/city/city_response_data_model.dart';
 import 'package:cost_checker/domain/core/status_data_model.dart';
+import 'package:cost_checker/domain/province/province_data_model.dart';
 import 'package:cost_checker/domain/province/province_response_data_model.dart';
 import 'package:cost_checker/infrastructure/rajaongkir/rajaongkir_repository.dart';
 import 'package:cost_checker/presentation/destination_city/destination_city_page.dart';
@@ -13,19 +15,9 @@ class OriginCityPage extends StatefulWidget {
 }
 
 class _OriginCityPageState extends State<OriginCityPage> {
-  List<String> dataList = ["1", "2", "3", "4"];
-
-  @override
-  void initState() {
-    super.initState();
-    RajaongkirRepository()
-        .getProvinceData()
-        .then((value) => print(value.results!.length))
-        .catchError((e) {
-      print(e);
-    });
-  }
-
+  String provinceId = "1";
+  Future<ProvinceResponseDataModel> provinceFuture =
+      RajaongkirRepository().getProvinceData();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -80,7 +72,7 @@ class _OriginCityPageState extends State<OriginCityPage> {
                   ),
                   SizedBox(height: 5),
                   FutureBuilder<ProvinceResponseDataModel>(
-                    future: RajaongkirRepository().getProvinceData(),
+                    future: provinceFuture,
                     builder: (context, snapshot) {
                       switch (snapshot.connectionState) {
                         case ConnectionState.waiting:
@@ -90,14 +82,20 @@ class _OriginCityPageState extends State<OriginCityPage> {
                             return errorDropdown(
                                 snapshot.error as StatusDataModel);
                           } else {
-                            return DropdownButtonFormField(
+                            return DropdownButtonFormField<ProvinceDataModel>(
                               isExpanded: true,
                               items: snapshot.data!.results!
                                   .map((e) => DropdownMenuItem(
-                                      child: Text(e.province!), value: e))
+                                        child: Text(e.province!),
+                                        value: e,
+                                      ))
                                   .toList(),
                               onChanged: (e) {
-                                print(e);
+                                //fungsi ini akan mentrigger city,
+                                print(e!.provinceId);
+                                setState(() {
+                                  provinceId = e.provinceId!;
+                                });
                               },
                               decoration: InputDecoration(
                                 hintText: "Choose province",
@@ -129,7 +127,8 @@ class _OriginCityPageState extends State<OriginCityPage> {
                   ),
                   SizedBox(height: 5),
                   FutureBuilder<CityResponseDataModel>(
-                    future: RajaongkirRepository().getCityData(),
+                    future:
+                        RajaongkirRepository().getCityByProvinceId(provinceId),
                     builder: (context, snapshot) {
                       switch (snapshot.connectionState) {
                         case ConnectionState.waiting:
@@ -139,7 +138,7 @@ class _OriginCityPageState extends State<OriginCityPage> {
                             return errorDropdown(
                                 snapshot.error as StatusDataModel);
                           } else {
-                            return DropdownButtonFormField(
+                            return DropdownButtonFormField<CityDataModel>(
                               isExpanded: true,
                               items: snapshot.data!.results!
                                   .map((e) => DropdownMenuItem(
@@ -148,7 +147,9 @@ class _OriginCityPageState extends State<OriginCityPage> {
                                         value: e,
                                       ))
                                   .toList(),
-                              onChanged: (e) {},
+                              onChanged: (e) {
+                                print(e);
+                              },
                               decoration: InputDecoration(
                                 hintText: "Choose city",
                                 enabledBorder: OutlineInputBorder(
