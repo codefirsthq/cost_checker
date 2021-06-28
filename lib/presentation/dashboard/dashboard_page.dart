@@ -1,7 +1,9 @@
 import 'package:cost_checker/presentation/origin_city/origin_city_page.dart';
 import 'package:flutter/material.dart';
+import 'package:get/route_manager.dart';
 
 class DashboardPage extends StatefulWidget {
+  static final String TAG = '/dashboard_page';
   const DashboardPage({Key? key}) : super(key: key);
 
   @override
@@ -33,8 +35,7 @@ class _DashboardPageState extends State<DashboardPage> {
                 height: 45,
                 child: ElevatedButton(
                   onPressed: () {
-                    Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => OriginCityPage()));
+                    Get.toNamed(OriginCityPage.TAG);
                   },
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.center,
