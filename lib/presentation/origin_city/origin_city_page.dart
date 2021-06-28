@@ -1,3 +1,5 @@
+import 'package:cost_checker/domain/core/status_data_model.dart';
+import 'package:cost_checker/domain/province/province_response_data_model.dart';
 import 'package:cost_checker/infrastructure/rajaongkir/rajaongkir_repository.dart';
 import 'package:cost_checker/presentation/destination_city/destination_city_page.dart';
 import 'package:flutter/material.dart';
@@ -75,22 +77,42 @@ class _OriginCityPageState extends State<OriginCityPage> {
                   style: TextStyle(fontSize: 14),
                 ),
                 SizedBox(height: 5),
-                DropdownButtonFormField(
-                  items: dataList
-                      .map((e) => DropdownMenuItem(
-                            child: Text(e),
-                            value: e,
-                          ))
-                      .toList(),
-                  onChanged: (e) {},
-                  decoration: InputDecoration(
-                    hintText: "Choose province",
-                    enabledBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.blue, width: 2),
-                        borderRadius: BorderRadius.circular(4)),
-                    contentPadding: EdgeInsets.symmetric(horizontal: 10),
-                    floatingLabelBehavior: FloatingLabelBehavior.never,
-                  ),
+                FutureBuilder<ProvinceResponseDataModel>(
+                  future: RajaongkirRepository().getProvinceData(),
+                  builder: (context, snapshot) {
+                    switch (snapshot.connectionState) {
+                      case ConnectionState.waiting:
+                        return loadingDropdownButton();
+                      case ConnectionState.done:
+                        if (snapshot.hasError) {
+                          return errorDropdown(
+                              snapshot.error as StatusDataModel);
+                        } else {
+                          return DropdownButtonFormField(
+                            items: snapshot.data!.results!
+                                .map((e) => DropdownMenuItem(
+                                    child: Text(e.province!), value: e))
+                                .toList(),
+                            onChanged: (e) {
+                              print(e);
+                            },
+                            decoration: InputDecoration(
+                              hintText: "Choose province",
+                              enabledBorder: OutlineInputBorder(
+                                  borderSide:
+                                      BorderSide(color: Colors.blue, width: 2),
+                                  borderRadius: BorderRadius.circular(4)),
+                              contentPadding:
+                                  EdgeInsets.symmetric(horizontal: 10),
+                              floatingLabelBehavior:
+                                  FloatingLabelBehavior.never,
+                            ),
+                          );
+                        }
+                      default:
+                        return loadingDropdownButton();
+                    }
+                  },
                 )
               ],
             ),
@@ -136,6 +158,44 @@ class _OriginCityPageState extends State<OriginCityPage> {
           ],
         ),
       )),
+    );
+  }
+
+  DropdownButtonFormField errorDropdown(StatusDataModel error) {
+    return DropdownButtonFormField(
+      items: [],
+      onChanged: (e) {},
+      decoration: InputDecoration(
+        suffixIcon: IconButton(
+          icon: Icon(Icons.refresh),
+          onPressed: () {},
+        ),
+        hintText: error.description,
+        enabledBorder: OutlineInputBorder(
+            borderSide: BorderSide(color: Colors.blue, width: 2),
+            borderRadius: BorderRadius.circular(4)),
+        contentPadding: EdgeInsets.symmetric(horizontal: 10),
+        floatingLabelBehavior: FloatingLabelBehavior.never,
+      ),
+    );
+  }
+
+  DropdownButtonFormField loadingDropdownButton() {
+    return DropdownButtonFormField(
+      items: [],
+      onChanged: (e) {},
+      decoration: InputDecoration(
+        suffixIcon: Transform.scale(
+          scale: 0.5,
+          child: CircularProgressIndicator.adaptive(),
+        ),
+        hintText: "Getting data . . .",
+        enabledBorder: OutlineInputBorder(
+            borderSide: BorderSide(color: Colors.blue, width: 2),
+            borderRadius: BorderRadius.circular(4)),
+        contentPadding: EdgeInsets.symmetric(horizontal: 10),
+        floatingLabelBehavior: FloatingLabelBehavior.never,
+      ),
     );
   }
 }
