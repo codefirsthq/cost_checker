@@ -1,3 +1,4 @@
+import 'package:cost_checker/application/location_controller.dart';
 import 'package:cost_checker/domain/city/city_data_model.dart';
 import 'package:cost_checker/domain/city/city_response_data_model.dart';
 import 'package:cost_checker/domain/core/status_data_model.dart';
@@ -6,7 +7,7 @@ import 'package:cost_checker/domain/province/province_response_data_model.dart';
 import 'package:cost_checker/infrastructure/rajaongkir/rajaongkir_repository.dart';
 import 'package:cost_checker/presentation/destination_city/destination_city_page.dart';
 import 'package:flutter/material.dart';
-import 'package:get/route_manager.dart';
+import 'package:get/get.dart';
 
 class OriginCityPage extends StatefulWidget {
   static final String TAG = '/origin_city_page';
@@ -21,6 +22,8 @@ class _OriginCityPageState extends State<OriginCityPage> {
   String provinceId = "1";
   Future<ProvinceResponseDataModel> provinceFuture =
       RajaongkirRepository().getProvinceData();
+
+  final locationController = Get.put(LocationController());
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -152,7 +155,7 @@ class _OriginCityPageState extends State<OriginCityPage> {
                                           ))
                                       .toList(),
                                   onChanged: (e) {
-                                    print(e);
+                                    locationController.setOriginCity(e!);
                                   },
                                   decoration: InputDecoration(
                                     hintText: "Choose city",

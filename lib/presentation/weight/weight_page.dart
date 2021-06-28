@@ -1,4 +1,6 @@
+import 'package:cost_checker/presentation/result/result_page.dart';
 import 'package:flutter/material.dart';
+import 'package:get/route_manager.dart';
 
 class WeightPage extends StatefulWidget {
   static final String TAG = '/weight_page';
@@ -93,7 +95,9 @@ class _WeightPageState extends State<WeightPage> {
               height: 45,
               child: ElevatedButton(
                 child: Text("CALCULATE COST"),
-                onPressed: () {},
+                onPressed: () {
+                  Get.toNamed(ResultPage.TAG);
+                },
               ))
         ],
       ),
