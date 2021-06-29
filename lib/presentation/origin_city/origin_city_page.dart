@@ -24,6 +24,7 @@ class _OriginCityPageState extends State<OriginCityPage> {
       RajaongkirRepository().getProvinceData();
 
   final locationController = Get.put(LocationController());
+  late CityDataModel _selectedCity;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -155,7 +156,7 @@ class _OriginCityPageState extends State<OriginCityPage> {
                                           ))
                                       .toList(),
                                   onChanged: (e) {
-                                    locationController.setOriginCity(e!);
+                                    _selectedCity = e!;
                                   },
                                   decoration: InputDecoration(
                                     hintText: "Choose city",
@@ -190,6 +191,7 @@ class _OriginCityPageState extends State<OriginCityPage> {
               child: ElevatedButton(
                 child: Text("SET DESTINATION"),
                 onPressed: () {
+                  locationController.setOriginCity(_selectedCity);
                   Get.toNamed(DestinationCityPage.TAG);
                 },
               ))

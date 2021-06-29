@@ -1,3 +1,4 @@
+import 'package:cost_checker/application/location_controller.dart';
 import 'package:cost_checker/domain/city/city_data_model.dart';
 import 'package:cost_checker/domain/city/city_response_data_model.dart';
 import 'package:cost_checker/domain/core/status_data_model.dart';
@@ -6,7 +7,7 @@ import 'package:cost_checker/domain/province/province_response_data_model.dart';
 import 'package:cost_checker/infrastructure/rajaongkir/rajaongkir_repository.dart';
 import 'package:cost_checker/presentation/weight/weight_page.dart';
 import 'package:flutter/material.dart';
-import 'package:get/route_manager.dart';
+import 'package:get/get.dart';
 
 class DestinationCityPage extends StatefulWidget {
   static final String TAG = '/destination_city_page';
@@ -18,6 +19,7 @@ class DestinationCityPage extends StatefulWidget {
 
 class _DestinationCityPageState extends State<DestinationCityPage> {
   String provinceId = "1";
+  late CityDataModel _selectedCity;
   Future<ProvinceResponseDataModel> provinceFuture =
       RajaongkirRepository().getProvinceData();
   @override
@@ -156,7 +158,7 @@ class _DestinationCityPageState extends State<DestinationCityPage> {
                                             ))
                                         .toList(),
                                     onChanged: (e) {
-                                      print(e);
+                                      _selectedCity = e!;
                                     },
                                     decoration: InputDecoration(
                                       hintText: "Choose city",
@@ -193,6 +195,8 @@ class _DestinationCityPageState extends State<DestinationCityPage> {
               child: ElevatedButton(
                 child: Text("SET PACKAGE WEIGHT"),
                 onPressed: () {
+                  Get.put(LocationController())
+                      .setDestinationCity(_selectedCity);
                   Get.toNamed(WeightPage.TAG);
                 },
               ))

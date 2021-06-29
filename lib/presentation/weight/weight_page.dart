@@ -1,6 +1,7 @@
+import 'package:cost_checker/application/location_controller.dart';
 import 'package:cost_checker/presentation/result/result_page.dart';
 import 'package:flutter/material.dart';
-import 'package:get/route_manager.dart';
+import 'package:get/get.dart';
 
 class WeightPage extends StatefulWidget {
   static final String TAG = '/weight_page';
@@ -13,6 +14,13 @@ class WeightPage extends StatefulWidget {
 class _WeightPageState extends State<WeightPage> {
   TextEditingController weightController = TextEditingController();
   FocusNode weichtFocusNode = FocusNode();
+
+  @override
+  void initState() {
+    weichtFocusNode.requestFocus();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -96,6 +104,9 @@ class _WeightPageState extends State<WeightPage> {
               child: ElevatedButton(
                 child: Text("CALCULATE COST"),
                 onPressed: () {
+                  Get.put(LocationController())
+                      .setWeight(int.parse(weightController.text));
+
                   Get.toNamed(ResultPage.TAG);
                 },
               ))

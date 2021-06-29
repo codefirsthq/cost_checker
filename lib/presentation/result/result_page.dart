@@ -17,9 +17,16 @@ class _ResultPageState extends State<ResultPage> {
     return Scaffold(
       body: Center(
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text('Data hasil'),
-            Text(locationController.getSelectedDestiantionCity.toJson().toString())
+            Text('origin City'),
+            Text(locationController.getSelectedOriginCity.toJson().toString()),
+            Text('destination City'),
+            Text(locationController.getSelectedDestiantionCity
+                .toJson()
+                .toString()),
+            Text('weight'),
+            Text(locationController.getWeight.toString()),
           ],
         ),
       ),
