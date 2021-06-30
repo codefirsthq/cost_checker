@@ -1,4 +1,5 @@
 import 'package:cost_checker/application/location_controller.dart';
+import 'package:cost_checker/presentation/courier/choose_courier_page.dart';
 import 'package:cost_checker/presentation/result/result_page.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -104,10 +105,11 @@ class _WeightPageState extends State<WeightPage> {
               child: ElevatedButton(
                 child: Text("CALCULATE COST"),
                 onPressed: () {
+                  
                   Get.put(LocationController())
                       .setWeight(int.parse(weightController.text));
 
-                  Get.toNamed(ResultPage.TAG);
+                  Get.toNamed(ChooseCourierPage.TAG);
                 },
               ))
         ],

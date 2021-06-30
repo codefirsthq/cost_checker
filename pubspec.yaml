@@ -28,6 +28,7 @@ dependencies:
   freezed_annotation: ^0.14.2
   get: ^4.1.4
   json_annotation: ^4.0.1
+  timelines: ^0.1.0
 
 dev_dependencies:
   flutter_test:
