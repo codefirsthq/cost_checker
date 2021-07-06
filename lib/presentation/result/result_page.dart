@@ -3,6 +3,7 @@ import 'package:cost_checker/domain/core/status_data_model.dart';
 import 'package:cost_checker/domain/cost/cost_request_data_model.dart';
 import 'package:cost_checker/domain/cost/cost_response_data_model.dart';
 import 'package:cost_checker/domain/courier/courier_detail_data_model.dart';
+import 'package:cost_checker/infrastructure/functions/formatter.dart';
 import 'package:cost_checker/infrastructure/rajaongkir/rajaongkir_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -204,10 +205,12 @@ class CompleteCostWidget extends StatelessWidget {
                                     child: Text(e.etd),
                                   ),
                                   Expanded(
-                                    flex: 2,
+                                    flex: 4,
                                     child: Align(
                                       alignment: Alignment.centerRight,
-                                      child: Text(e.value.toString(),
+                                      child: Text(
+                                          Formatter.formatCurrency(
+                                              e.value.toString()),
                                           style: TextStyle(fontSize: 17)),
                                     ),
                                   )
