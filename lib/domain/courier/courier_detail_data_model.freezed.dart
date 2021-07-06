@@ -22,10 +22,13 @@ class _$CourierDetailDataModelTearOff {
   const _$CourierDetailDataModelTearOff();
 
   _CourierDetailDataModel call(
-      {required String name, required String description}) {
+      {required String name,
+      required String description,
+      required String imageAsset}) {
     return _CourierDetailDataModel(
       name: name,
       description: description,
+      imageAsset: imageAsset,
     );
   }
 
@@ -41,6 +44,7 @@ const $CourierDetailDataModel = _$CourierDetailDataModelTearOff();
 mixin _$CourierDetailDataModel {
   String get name => throw _privateConstructorUsedError;
   String get description => throw _privateConstructorUsedError;
+  String get imageAsset => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -53,7 +57,7 @@ abstract class $CourierDetailDataModelCopyWith<$Res> {
   factory $CourierDetailDataModelCopyWith(CourierDetailDataModel value,
           $Res Function(CourierDetailDataModel) then) =
       _$CourierDetailDataModelCopyWithImpl<$Res>;
-  $Res call({String name, String description});
+  $Res call({String name, String description, String imageAsset});
 }
 
 /// @nodoc
@@ -69,6 +73,7 @@ class _$CourierDetailDataModelCopyWithImpl<$Res>
   $Res call({
     Object? name = freezed,
     Object? description = freezed,
+    Object? imageAsset = freezed,
   }) {
     return _then(_value.copyWith(
       name: name == freezed
@@ -78,6 +83,10 @@ class _$CourierDetailDataModelCopyWithImpl<$Res>
       description: description == freezed
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
+              as String,
+      imageAsset: imageAsset == freezed
+          ? _value.imageAsset
+          : imageAsset // ignore: cast_nullable_to_non_nullable
               as String,
     ));
   }
@@ -90,7 +99,7 @@ abstract class _$CourierDetailDataModelCopyWith<$Res>
           $Res Function(_CourierDetailDataModel) then) =
       __$CourierDetailDataModelCopyWithImpl<$Res>;
   @override
-  $Res call({String name, String description});
+  $Res call({String name, String description, String imageAsset});
 }
 
 /// @nodoc
@@ -108,6 +117,7 @@ class __$CourierDetailDataModelCopyWithImpl<$Res>
   $Res call({
     Object? name = freezed,
     Object? description = freezed,
+    Object? imageAsset = freezed,
   }) {
     return _then(_CourierDetailDataModel(
       name: name == freezed
@@ -118,6 +128,10 @@ class __$CourierDetailDataModelCopyWithImpl<$Res>
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
               as String,
+      imageAsset: imageAsset == freezed
+          ? _value.imageAsset
+          : imageAsset // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 }
@@ -125,7 +139,10 @@ class __$CourierDetailDataModelCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$_CourierDetailDataModel implements _CourierDetailDataModel {
-  _$_CourierDetailDataModel({required this.name, required this.description});
+  _$_CourierDetailDataModel(
+      {required this.name,
+      required this.description,
+      required this.imageAsset});
 
   factory _$_CourierDetailDataModel.fromJson(Map<String, dynamic> json) =>
       _$_$_CourierDetailDataModelFromJson(json);
@@ -134,10 +151,12 @@ class _$_CourierDetailDataModel implements _CourierDetailDataModel {
   final String name;
   @override
   final String description;
+  @override
+  final String imageAsset;
 
   @override
   String toString() {
-    return 'CourierDetailDataModel(name: $name, description: $description)';
+    return 'CourierDetailDataModel(name: $name, description: $description, imageAsset: $imageAsset)';
   }
 
   @override
@@ -148,14 +167,18 @@ class _$_CourierDetailDataModel implements _CourierDetailDataModel {
                 const DeepCollectionEquality().equals(other.name, name)) &&
             (identical(other.description, description) ||
                 const DeepCollectionEquality()
-                    .equals(other.description, description)));
+                    .equals(other.description, description)) &&
+            (identical(other.imageAsset, imageAsset) ||
+                const DeepCollectionEquality()
+                    .equals(other.imageAsset, imageAsset)));
   }
 
   @override
   int get hashCode =>
       runtimeType.hashCode ^
       const DeepCollectionEquality().hash(name) ^
-      const DeepCollectionEquality().hash(description);
+      const DeepCollectionEquality().hash(description) ^
+      const DeepCollectionEquality().hash(imageAsset);
 
   @JsonKey(ignore: true)
   @override
@@ -172,7 +195,8 @@ class _$_CourierDetailDataModel implements _CourierDetailDataModel {
 abstract class _CourierDetailDataModel implements CourierDetailDataModel {
   factory _CourierDetailDataModel(
       {required String name,
-      required String description}) = _$_CourierDetailDataModel;
+      required String description,
+      required String imageAsset}) = _$_CourierDetailDataModel;
 
   factory _CourierDetailDataModel.fromJson(Map<String, dynamic> json) =
       _$_CourierDetailDataModel.fromJson;
@@ -181,6 +205,8 @@ abstract class _CourierDetailDataModel implements CourierDetailDataModel {
   String get name => throw _privateConstructorUsedError;
   @override
   String get description => throw _privateConstructorUsedError;
+  @override
+  String get imageAsset => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   _$CourierDetailDataModelCopyWith<_CourierDetailDataModel> get copyWith =>

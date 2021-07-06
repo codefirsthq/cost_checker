@@ -11,6 +11,7 @@ _$_CourierDetailDataModel _$_$_CourierDetailDataModelFromJson(
   return _$_CourierDetailDataModel(
     name: json['name'] as String,
     description: json['description'] as String,
+    imageAsset: json['imageAsset'] as String,
   );
 }
 
@@ -19,4 +20,5 @@ Map<String, dynamic> _$_$_CourierDetailDataModelToJson(
     <String, dynamic>{
       'name': instance.name,
       'description': instance.description,
+      'imageAsset': instance.imageAsset,
     };

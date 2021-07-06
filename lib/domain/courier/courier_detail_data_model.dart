@@ -8,6 +8,7 @@ class CourierDetailDataModel with _$CourierDetailDataModel {
   factory CourierDetailDataModel({
     required String name,
     required String description,
+    required String imageAsset,
   }) = _CourierDetailDataModel;
 
   factory CourierDetailDataModel.fromJson(Map<String, dynamic> json) =>

@@ -10,6 +10,7 @@ class AppWidget extends StatelessWidget {
       title: 'Cost Checker',
       getPages: Routes.pages,
       theme: ThemeData(
+        scaffoldBackgroundColor: Colors.white,
         primarySwatch: Colors.teal,
       ),
       initialRoute: DashboardPage.TAG,

@@ -18,82 +18,210 @@ class ResultPage extends StatefulWidget {
 
 class _ResultPageState extends State<ResultPage> {
   final locationController = Get.put(LocationController());
-
-  CostRequestDataModel getAllData() {
-    var data = Get.arguments as CourierDetailDataModel;
-    print("ini data courier" + data.toJson().toString());
-
-    String? _originCityId = locationController.getSelectedOriginCity.cityId;
-    String? _destinationCityId =
-        locationController.getSelectedDestiantionCity.cityId;
-    int? _weight = locationController.getWeight;
-    String? courier = data.name;
-
-    var _dataRequest = CostRequestDataModel(
-      origin: _originCityId!,
-      destination: _destinationCityId!,
-      weight: _weight,
-      courier: courier,
+  late Future<CostResponseDataModel> getCostResponse;
+  @override
+  void initState() {
+    getCostResponse = RajaongkirRepository().getCost(
+      CostRequestDataModel(
+        origin: locationController.getSelectedOriginCity.cityId.toString(),
+        destination:
+            locationController.getSelectedDestiantionCity.cityId.toString(),
+        weight: locationController.getWeight,
+        courier: locationController.getSelectedCourier!.name,
+      ),
     );
 
-    return _dataRequest;
+    super.initState();
   }
+
+  @override
+  Widget build(BuildContext context) {
+    return FutureBuilder<CostResponseDataModel>(
+        future: getCostResponse,
+        builder: (context, snapshot) {
+          switch (snapshot.connectionState) {
+            case ConnectionState.waiting:
+              return LoadingCostWidget();
+            case ConnectionState.done:
+              if (snapshot.hasError) {
+                return ErrorCostWidget();
+              } else {
+                return CompleteCostWidget(costResponse: snapshot.data);
+              }
+            default:
+              return Center(child: CircularProgressIndicator.adaptive());
+          }
+        });
+  }
+}
+
+class LoadingCostWidget extends StatelessWidget {
+  const LoadingCostWidget({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Center(
+        child: CircularProgressIndicator.adaptive(),
+      ),
+    );
+  }
+}
+
+class ErrorCostWidget extends StatelessWidget {
+  const ErrorCostWidget({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Center(
+        child: Text("Error"),
+      ),
+    );
+  }
+}
+
+class CompleteCostWidget extends StatelessWidget {
+  const CompleteCostWidget({
+    Key? key,
+    required this.costResponse,
+  }) : super(key: key);
+  final CostResponseDataModel? costResponse;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Result"),
+        title: Text(costResponse!.results.first.name),
       ),
-      body: FutureBuilder<CostResponseDataModel>(
-          future: RajaongkirRepository().getCost(getAllData()),
-          builder: (context, snapshot) {
-            switch (snapshot.connectionState) {
-              case ConnectionState.waiting:
-                return Center(
-                  child: CircularProgressIndicator.adaptive(),
-                );
-
-              case ConnectionState.done:
-                if (snapshot.hasError) {
-                  var _error = snapshot.error as StatusDataModel;
-                  return Text(_error.description.toString());
-                } else {
-                  var _data = snapshot.data;
-                  var _cityOrigin = _data!.originDetails;
-                  var _cityDestination = _data.destinationDetails;
-                  var _result = _data.results;
-                  return Container(
-                    child: Column(
-                      children: [
-                        Column(
+      body: Container(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Column(
+              children: [
+                SizedBox(height: 10),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 8),
+                  child: ListTile(
+                      title: Text(
+                        "Origin",
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white,
+                        ),
+                      ),
+                      tileColor: Colors.red[300],
+                      subtitle: Text(
+                        "${costResponse!.originDetails!.cityName}, ${costResponse!.originDetails!.province}",
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white,
+                        ),
+                      ),
+                      trailing: Icon(
+                        Icons.arrow_upward_outlined,
+                        color: Colors.white,
+                      )),
+                ),
+                SizedBox(height: 10),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 8),
+                  child: ListTile(
+                    tileColor: Colors.green[300],
+                    title: Text(
+                      "Destination",
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white,
+                      ),
+                    ),
+                    subtitle: Text(
+                      "${costResponse!.destinationDetails!.cityName}, ${costResponse!.destinationDetails!.province}",
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white,
+                      ),
+                    ),
+                    trailing: Icon(
+                      Icons.arrow_downward,
+                      color: Colors.white,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            SizedBox(height: 20),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 10.0),
+              child: Text(
+                "List Price",
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 15,
+                ),
+              ),
+            ),
+            Divider(thickness: 1),
+            Expanded(
+                child: ListView.builder(
+                    itemCount: costResponse!.results.first.costs.length,
+                    itemBuilder: (context, index) {
+                      var _services = costResponse!.results.first.costs;
+                      return Padding(
+                        padding: const EdgeInsets.all(12.0),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            ListTile(
-                              title: Text("Origin"),
-                              subtitle: Text(
-                                  "${_cityOrigin!.type} ${_cityOrigin.cityName}, ${_cityOrigin.province}  "),
+                            Text(
+                              _services[index].description,
+                              style: TextStyle(
+                                fontSize: 18,
+                                fontWeight: FontWeight.bold,
+                              ),
                             ),
-                            ListTile(
-                              title: Text("Destination"),
-                              subtitle: Text(
-                                  "${_cityDestination!.type} ${_cityDestination.cityName}, ${_cityDestination.province}  "),
-                            ),
+                            SizedBox(height: 8),
+                            Column(
+                                children: _services[index].cost.map((e) {
+                              return Row(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Expanded(
+                                    flex: 6,
+                                    child: Text(
+                                      "Harga",
+                                      style: TextStyle(fontSize: 17),
+                                    ),
+                                  ),
+                                  Expanded(
+                                    flex: 2,
+                                    child: Text(e.etd),
+                                  ),
+                                  Expanded(
+                                    flex: 2,
+                                    child: Align(
+                                      alignment: Alignment.centerRight,
+                                      child: Text(e.value.toString(),
+                                          style: TextStyle(fontSize: 17)),
+                                    ),
+                                  )
+                                ],
+                              );
+                            }).toList()),
+                            Divider()
                           ],
                         ),
-                        Expanded(
-                            child: ListView.builder(
-                                itemCount: _result.length,
-                                itemBuilder: (context, index) {
-                                  return Text(_result[index].name);
-                                }))
-                      ],
-                    ),
-                  );
-                }
-              default:
-                return Center(child: CircularProgressIndicator.adaptive());
-            }
-          }),
+                      );
+                    }))
+          ],
+        ),
+      ),
     );
   }
 }
