@@ -256,9 +256,9 @@ class _$RajaongkirStateTearOff {
     return const _OnLoading();
   }
 
-  _OnError onError(String message) {
+  _OnError onError(StatusDataModel status) {
     return _OnError(
-      message,
+      status,
     );
   }
 
@@ -279,7 +279,7 @@ mixin _$RajaongkirState {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() onLoading,
-    required TResult Function(String message) onError,
+    required TResult Function(StatusDataModel status) onError,
     required TResult Function(ProvinceResponseDataModel provinceResponse)
         onGetProvinceData,
   }) =>
@@ -288,7 +288,7 @@ mixin _$RajaongkirState {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? onLoading,
-    TResult Function(String message)? onError,
+    TResult Function(StatusDataModel status)? onError,
     TResult Function(ProvinceResponseDataModel provinceResponse)?
         onGetProvinceData,
     required TResult orElse(),
@@ -369,7 +369,7 @@ class _$_Initial implements _Initial {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() onLoading,
-    required TResult Function(String message) onError,
+    required TResult Function(StatusDataModel status) onError,
     required TResult Function(ProvinceResponseDataModel provinceResponse)
         onGetProvinceData,
   }) {
@@ -381,7 +381,7 @@ class _$_Initial implements _Initial {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? onLoading,
-    TResult Function(String message)? onError,
+    TResult Function(StatusDataModel status)? onError,
     TResult Function(ProvinceResponseDataModel provinceResponse)?
         onGetProvinceData,
     required TResult orElse(),
@@ -463,7 +463,7 @@ class _$_OnLoading implements _OnLoading {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() onLoading,
-    required TResult Function(String message) onError,
+    required TResult Function(StatusDataModel status) onError,
     required TResult Function(ProvinceResponseDataModel provinceResponse)
         onGetProvinceData,
   }) {
@@ -475,7 +475,7 @@ class _$_OnLoading implements _OnLoading {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? onLoading,
-    TResult Function(String message)? onError,
+    TResult Function(StatusDataModel status)? onError,
     TResult Function(ProvinceResponseDataModel provinceResponse)?
         onGetProvinceData,
     required TResult orElse(),
@@ -521,7 +521,9 @@ abstract class _OnLoading implements RajaongkirState {
 abstract class _$OnErrorCopyWith<$Res> {
   factory _$OnErrorCopyWith(_OnError value, $Res Function(_OnError) then) =
       __$OnErrorCopyWithImpl<$Res>;
-  $Res call({String message});
+  $Res call({StatusDataModel status});
+
+  $StatusDataModelCopyWith<$Res> get status;
 }
 
 /// @nodoc
@@ -535,41 +537,48 @@ class __$OnErrorCopyWithImpl<$Res> extends _$RajaongkirStateCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object? message = freezed,
+    Object? status = freezed,
   }) {
     return _then(_OnError(
-      message == freezed
-          ? _value.message
-          : message // ignore: cast_nullable_to_non_nullable
-              as String,
+      status == freezed
+          ? _value.status
+          : status // ignore: cast_nullable_to_non_nullable
+              as StatusDataModel,
     ));
+  }
+
+  @override
+  $StatusDataModelCopyWith<$Res> get status {
+    return $StatusDataModelCopyWith<$Res>(_value.status, (value) {
+      return _then(_value.copyWith(status: value));
+    });
   }
 }
 
 /// @nodoc
 
 class _$_OnError implements _OnError {
-  const _$_OnError(this.message);
+  const _$_OnError(this.status);
 
   @override
-  final String message;
+  final StatusDataModel status;
 
   @override
   String toString() {
-    return 'RajaongkirState.onError(message: $message)';
+    return 'RajaongkirState.onError(status: $status)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other is _OnError &&
-            (identical(other.message, message) ||
-                const DeepCollectionEquality().equals(other.message, message)));
+            (identical(other.status, status) ||
+                const DeepCollectionEquality().equals(other.status, status)));
   }
 
   @override
   int get hashCode =>
-      runtimeType.hashCode ^ const DeepCollectionEquality().hash(message);
+      runtimeType.hashCode ^ const DeepCollectionEquality().hash(status);
 
   @JsonKey(ignore: true)
   @override
@@ -581,11 +590,11 @@ class _$_OnError implements _OnError {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() onLoading,
-    required TResult Function(String message) onError,
+    required TResult Function(StatusDataModel status) onError,
     required TResult Function(ProvinceResponseDataModel provinceResponse)
         onGetProvinceData,
   }) {
-    return onError(message);
+    return onError(status);
   }
 
   @override
@@ -593,13 +602,13 @@ class _$_OnError implements _OnError {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? onLoading,
-    TResult Function(String message)? onError,
+    TResult Function(StatusDataModel status)? onError,
     TResult Function(ProvinceResponseDataModel provinceResponse)?
         onGetProvinceData,
     required TResult orElse(),
   }) {
     if (onError != null) {
-      return onError(message);
+      return onError(status);
     }
     return orElse();
   }
@@ -632,9 +641,9 @@ class _$_OnError implements _OnError {
 }
 
 abstract class _OnError implements RajaongkirState {
-  const factory _OnError(String message) = _$_OnError;
+  const factory _OnError(StatusDataModel status) = _$_OnError;
 
-  String get message => throw _privateConstructorUsedError;
+  StatusDataModel get status => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
   _$OnErrorCopyWith<_OnError> get copyWith =>
       throw _privateConstructorUsedError;
@@ -646,6 +655,8 @@ abstract class _$OnGetProvinceDataCopyWith<$Res> {
           _OnGetProvinceData value, $Res Function(_OnGetProvinceData) then) =
       __$OnGetProvinceDataCopyWithImpl<$Res>;
   $Res call({ProvinceResponseDataModel provinceResponse});
+
+  $ProvinceResponseDataModelCopyWith<$Res> get provinceResponse;
 }
 
 /// @nodoc
@@ -669,6 +680,14 @@ class __$OnGetProvinceDataCopyWithImpl<$Res>
           : provinceResponse // ignore: cast_nullable_to_non_nullable
               as ProvinceResponseDataModel,
     ));
+  }
+
+  @override
+  $ProvinceResponseDataModelCopyWith<$Res> get provinceResponse {
+    return $ProvinceResponseDataModelCopyWith<$Res>(_value.provinceResponse,
+        (value) {
+      return _then(_value.copyWith(provinceResponse: value));
+    });
   }
 }
 
@@ -709,7 +728,7 @@ class _$_OnGetProvinceData implements _OnGetProvinceData {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() onLoading,
-    required TResult Function(String message) onError,
+    required TResult Function(StatusDataModel status) onError,
     required TResult Function(ProvinceResponseDataModel provinceResponse)
         onGetProvinceData,
   }) {
@@ -721,7 +740,7 @@ class _$_OnGetProvinceData implements _OnGetProvinceData {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? onLoading,
-    TResult Function(String message)? onError,
+    TResult Function(StatusDataModel status)? onError,
     TResult Function(ProvinceResponseDataModel provinceResponse)?
         onGetProvinceData,
     required TResult orElse(),
