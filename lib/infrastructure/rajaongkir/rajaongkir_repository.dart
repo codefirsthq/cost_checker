@@ -43,14 +43,38 @@ class RajaongkirRepository implements IRajaongkir {
   }
 
   @override
-  Future<CityResponseDataModel> getCityData() {
-    // TODO: implement getCityData
-    throw UnimplementedError();
+  Future<CityResponseDataModel> getCityByProvinceId(String provinceId) async {
+    Response response;
+    //siapkan params
+    try {
+      response =
+          await _dio.get("/city", queryParameters: {"province": provinceId});
+      var _dataResp = response.data['rajaongkir'];
+      //query, status, results
+      final _data = CityResponseDataModel.fromJson(_dataResp);
+
+      return _data;
+    } on DioError catch (e) {
+      switch (e.type) {
+        case DioErrorType.response:
+          if (e.response!.statusCode == 400) {
+            //bad request
+            var _errorData = e.response!.data;
+            var _status = _errorData['rajaongkir']['status'];
+            StatusDataModel error = StatusDataModel.fromJson(_status);
+            throw error;
+          }
+          throw Exception(e.error.toString());
+
+        default:
+          throw Exception(e.error.toString());
+      }
+    }
   }
 
   @override
-  Future<CityResponseDataModel> getCityByProvinceId(String provinceId) {
-    // TODO: implement getCityByProvinceId
+  Future<CityResponseDataModel> getCityData() {
+    // TODO: implement getCityData
     throw UnimplementedError();
   }
 
@@ -64,35 +88,6 @@ class RajaongkirRepository implements IRajaongkir {
   //   Response response;
   //   try {
   //     response = await _dio.get("/city");
-  //     var _dataResp = response.data['rajaongkir'];
-  //     //query, status, results
-  //     final _data = CityResponseDataModel.fromJson(_dataResp);
-
-  //     return _data;
-  //   } on DioError catch (e) {
-  //     switch (e.type) {
-  //       case DioErrorType.response:
-  //         if (e.response!.statusCode == 400) {
-  //           //bad request
-  //           var _errorData = e.response!.data;
-  //           var _status = _errorData['rajaongkir']['status'];
-  //           StatusDataModel error = StatusDataModel.fromJson(_status);
-  //           throw error;
-  //         }
-  //         throw Exception(e.error.toString());
-
-  //       default:
-  //         throw Exception(e.error.toString());
-  //     }
-  //   }
-  // }
-
-  // Future<CityResponseDataModel> getCityByProvinceId(String provinceId) async {
-  //   Response response;
-  //   //siapkan params
-  //   try {
-  //     response =
-  //         await _dio.get("/city", queryParameters: {"province": provinceId});
   //     var _dataResp = response.data['rajaongkir'];
   //     //query, status, results
   //     final _data = CityResponseDataModel.fromJson(_dataResp);
