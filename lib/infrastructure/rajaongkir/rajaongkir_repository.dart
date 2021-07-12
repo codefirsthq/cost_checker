@@ -79,9 +79,34 @@ class RajaongkirRepository implements IRajaongkir {
   }
 
   @override
-  Future<CostResponseDataModel> getCost(CostRequestDataModel request) {
-    // TODO: implement getCost
-    throw UnimplementedError();
+  Future<CostResponseDataModel> getCost(CostRequestDataModel request) async {
+    Response response;
+    try {
+      response = await _dio.post(
+        "/cost",
+        data: request.toJson(),
+      );
+      var _dataResp = response.data['rajaongkir'];
+      //query, status, results
+      final _data = CostResponseDataModel.fromJson(_dataResp);
+
+      return _data;
+    } on DioError catch (e) {
+      switch (e.type) {
+        case DioErrorType.response:
+          if (e.response!.statusCode == 400) {
+            //bad request
+            var _errorData = e.response!.data;
+            var _status = _errorData['rajaongkir']['status'];
+            StatusDataModel error = StatusDataModel.fromJson(_status);
+            throw error;
+          }
+          throw Exception(e.error.toString());
+
+        default:
+          throw Exception(e.error.toString());
+      }
+    }
   }
 
   // Future<CityResponseDataModel> getCityData() async {

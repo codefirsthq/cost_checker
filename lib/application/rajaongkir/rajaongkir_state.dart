@@ -9,4 +9,6 @@ class RajaongkirState with _$RajaongkirState {
       ProvinceResponseDataModel provinceResponse) = _OnGetProvinceData;
   const factory RajaongkirState.onGetCityByProvince(
       CityResponseDataModel cityResponse) = _OnGetCityByProvince;
+  const factory RajaongkirState.onGetCost(CostResponseDataModel costResponse) =
+      _OnGetCost;
 }

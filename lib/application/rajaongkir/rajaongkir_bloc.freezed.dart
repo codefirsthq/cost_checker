@@ -29,6 +29,12 @@ class _$RajaongkirEventTearOff {
       provinceId: provinceId,
     );
   }
+
+  _GetCost getCost({required CostRequestDataModel request}) {
+    return _GetCost(
+      request: request,
+    );
+  }
 }
 
 /// @nodoc
@@ -41,6 +47,7 @@ mixin _$RajaongkirEvent {
     required TResult Function() started,
     required TResult Function() getProvinceListData,
     required TResult Function(String provinceId) getCityByProvinceId,
+    required TResult Function(CostRequestDataModel request) getCost,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -48,6 +55,7 @@ mixin _$RajaongkirEvent {
     TResult Function()? started,
     TResult Function()? getProvinceListData,
     TResult Function(String provinceId)? getCityByProvinceId,
+    TResult Function(CostRequestDataModel request)? getCost,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -56,6 +64,7 @@ mixin _$RajaongkirEvent {
     required TResult Function(_Started value) started,
     required TResult Function(_GetProvinceListData value) getProvinceListData,
     required TResult Function(_GetCityByProvinceId value) getCityByProvinceId,
+    required TResult Function(_GetCost value) getCost,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -63,6 +72,7 @@ mixin _$RajaongkirEvent {
     TResult Function(_Started value)? started,
     TResult Function(_GetProvinceListData value)? getProvinceListData,
     TResult Function(_GetCityByProvinceId value)? getCityByProvinceId,
+    TResult Function(_GetCost value)? getCost,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -125,6 +135,7 @@ class _$_Started implements _Started {
     required TResult Function() started,
     required TResult Function() getProvinceListData,
     required TResult Function(String provinceId) getCityByProvinceId,
+    required TResult Function(CostRequestDataModel request) getCost,
   }) {
     return started();
   }
@@ -135,6 +146,7 @@ class _$_Started implements _Started {
     TResult Function()? started,
     TResult Function()? getProvinceListData,
     TResult Function(String provinceId)? getCityByProvinceId,
+    TResult Function(CostRequestDataModel request)? getCost,
     required TResult orElse(),
   }) {
     if (started != null) {
@@ -149,6 +161,7 @@ class _$_Started implements _Started {
     required TResult Function(_Started value) started,
     required TResult Function(_GetProvinceListData value) getProvinceListData,
     required TResult Function(_GetCityByProvinceId value) getCityByProvinceId,
+    required TResult Function(_GetCost value) getCost,
   }) {
     return started(this);
   }
@@ -159,6 +172,7 @@ class _$_Started implements _Started {
     TResult Function(_Started value)? started,
     TResult Function(_GetProvinceListData value)? getProvinceListData,
     TResult Function(_GetCityByProvinceId value)? getCityByProvinceId,
+    TResult Function(_GetCost value)? getCost,
     required TResult orElse(),
   }) {
     if (started != null) {
@@ -215,6 +229,7 @@ class _$_GetProvinceListData implements _GetProvinceListData {
     required TResult Function() started,
     required TResult Function() getProvinceListData,
     required TResult Function(String provinceId) getCityByProvinceId,
+    required TResult Function(CostRequestDataModel request) getCost,
   }) {
     return getProvinceListData();
   }
@@ -225,6 +240,7 @@ class _$_GetProvinceListData implements _GetProvinceListData {
     TResult Function()? started,
     TResult Function()? getProvinceListData,
     TResult Function(String provinceId)? getCityByProvinceId,
+    TResult Function(CostRequestDataModel request)? getCost,
     required TResult orElse(),
   }) {
     if (getProvinceListData != null) {
@@ -239,6 +255,7 @@ class _$_GetProvinceListData implements _GetProvinceListData {
     required TResult Function(_Started value) started,
     required TResult Function(_GetProvinceListData value) getProvinceListData,
     required TResult Function(_GetCityByProvinceId value) getCityByProvinceId,
+    required TResult Function(_GetCost value) getCost,
   }) {
     return getProvinceListData(this);
   }
@@ -249,6 +266,7 @@ class _$_GetProvinceListData implements _GetProvinceListData {
     TResult Function(_Started value)? started,
     TResult Function(_GetProvinceListData value)? getProvinceListData,
     TResult Function(_GetCityByProvinceId value)? getCityByProvinceId,
+    TResult Function(_GetCost value)? getCost,
     required TResult orElse(),
   }) {
     if (getProvinceListData != null) {
@@ -332,6 +350,7 @@ class _$_GetCityByProvinceId implements _GetCityByProvinceId {
     required TResult Function() started,
     required TResult Function() getProvinceListData,
     required TResult Function(String provinceId) getCityByProvinceId,
+    required TResult Function(CostRequestDataModel request) getCost,
   }) {
     return getCityByProvinceId(provinceId);
   }
@@ -342,6 +361,7 @@ class _$_GetCityByProvinceId implements _GetCityByProvinceId {
     TResult Function()? started,
     TResult Function()? getProvinceListData,
     TResult Function(String provinceId)? getCityByProvinceId,
+    TResult Function(CostRequestDataModel request)? getCost,
     required TResult orElse(),
   }) {
     if (getCityByProvinceId != null) {
@@ -356,6 +376,7 @@ class _$_GetCityByProvinceId implements _GetCityByProvinceId {
     required TResult Function(_Started value) started,
     required TResult Function(_GetProvinceListData value) getProvinceListData,
     required TResult Function(_GetCityByProvinceId value) getCityByProvinceId,
+    required TResult Function(_GetCost value) getCost,
   }) {
     return getCityByProvinceId(this);
   }
@@ -366,6 +387,7 @@ class _$_GetCityByProvinceId implements _GetCityByProvinceId {
     TResult Function(_Started value)? started,
     TResult Function(_GetProvinceListData value)? getProvinceListData,
     TResult Function(_GetCityByProvinceId value)? getCityByProvinceId,
+    TResult Function(_GetCost value)? getCost,
     required TResult orElse(),
   }) {
     if (getCityByProvinceId != null) {
@@ -382,6 +404,136 @@ abstract class _GetCityByProvinceId implements RajaongkirEvent {
   String get provinceId => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
   _$GetCityByProvinceIdCopyWith<_GetCityByProvinceId> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$GetCostCopyWith<$Res> {
+  factory _$GetCostCopyWith(_GetCost value, $Res Function(_GetCost) then) =
+      __$GetCostCopyWithImpl<$Res>;
+  $Res call({CostRequestDataModel request});
+
+  $CostRequestDataModelCopyWith<$Res> get request;
+}
+
+/// @nodoc
+class __$GetCostCopyWithImpl<$Res> extends _$RajaongkirEventCopyWithImpl<$Res>
+    implements _$GetCostCopyWith<$Res> {
+  __$GetCostCopyWithImpl(_GetCost _value, $Res Function(_GetCost) _then)
+      : super(_value, (v) => _then(v as _GetCost));
+
+  @override
+  _GetCost get _value => super._value as _GetCost;
+
+  @override
+  $Res call({
+    Object? request = freezed,
+  }) {
+    return _then(_GetCost(
+      request: request == freezed
+          ? _value.request
+          : request // ignore: cast_nullable_to_non_nullable
+              as CostRequestDataModel,
+    ));
+  }
+
+  @override
+  $CostRequestDataModelCopyWith<$Res> get request {
+    return $CostRequestDataModelCopyWith<$Res>(_value.request, (value) {
+      return _then(_value.copyWith(request: value));
+    });
+  }
+}
+
+/// @nodoc
+
+class _$_GetCost implements _GetCost {
+  const _$_GetCost({required this.request});
+
+  @override
+  final CostRequestDataModel request;
+
+  @override
+  String toString() {
+    return 'RajaongkirEvent.getCost(request: $request)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other is _GetCost &&
+            (identical(other.request, request) ||
+                const DeepCollectionEquality().equals(other.request, request)));
+  }
+
+  @override
+  int get hashCode =>
+      runtimeType.hashCode ^ const DeepCollectionEquality().hash(request);
+
+  @JsonKey(ignore: true)
+  @override
+  _$GetCostCopyWith<_GetCost> get copyWith =>
+      __$GetCostCopyWithImpl<_GetCost>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() started,
+    required TResult Function() getProvinceListData,
+    required TResult Function(String provinceId) getCityByProvinceId,
+    required TResult Function(CostRequestDataModel request) getCost,
+  }) {
+    return getCost(request);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? started,
+    TResult Function()? getProvinceListData,
+    TResult Function(String provinceId)? getCityByProvinceId,
+    TResult Function(CostRequestDataModel request)? getCost,
+    required TResult orElse(),
+  }) {
+    if (getCost != null) {
+      return getCost(request);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Started value) started,
+    required TResult Function(_GetProvinceListData value) getProvinceListData,
+    required TResult Function(_GetCityByProvinceId value) getCityByProvinceId,
+    required TResult Function(_GetCost value) getCost,
+  }) {
+    return getCost(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Started value)? started,
+    TResult Function(_GetProvinceListData value)? getProvinceListData,
+    TResult Function(_GetCityByProvinceId value)? getCityByProvinceId,
+    TResult Function(_GetCost value)? getCost,
+    required TResult orElse(),
+  }) {
+    if (getCost != null) {
+      return getCost(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _GetCost implements RajaongkirEvent {
+  const factory _GetCost({required CostRequestDataModel request}) = _$_GetCost;
+
+  CostRequestDataModel get request => throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  _$GetCostCopyWith<_GetCost> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -415,6 +567,12 @@ class _$RajaongkirStateTearOff {
       cityResponse,
     );
   }
+
+  _OnGetCost onGetCost(CostResponseDataModel costResponse) {
+    return _OnGetCost(
+      costResponse,
+    );
+  }
 }
 
 /// @nodoc
@@ -431,6 +589,7 @@ mixin _$RajaongkirState {
         onGetProvinceData,
     required TResult Function(CityResponseDataModel cityResponse)
         onGetCityByProvince,
+    required TResult Function(CostResponseDataModel costResponse) onGetCost,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -441,6 +600,7 @@ mixin _$RajaongkirState {
     TResult Function(ProvinceResponseDataModel provinceResponse)?
         onGetProvinceData,
     TResult Function(CityResponseDataModel cityResponse)? onGetCityByProvince,
+    TResult Function(CostResponseDataModel costResponse)? onGetCost,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -451,6 +611,7 @@ mixin _$RajaongkirState {
     required TResult Function(_OnError value) onError,
     required TResult Function(_OnGetProvinceData value) onGetProvinceData,
     required TResult Function(_OnGetCityByProvince value) onGetCityByProvince,
+    required TResult Function(_OnGetCost value) onGetCost,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -460,6 +621,7 @@ mixin _$RajaongkirState {
     TResult Function(_OnError value)? onError,
     TResult Function(_OnGetProvinceData value)? onGetProvinceData,
     TResult Function(_OnGetCityByProvince value)? onGetCityByProvince,
+    TResult Function(_OnGetCost value)? onGetCost,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -526,6 +688,7 @@ class _$_Initial implements _Initial {
         onGetProvinceData,
     required TResult Function(CityResponseDataModel cityResponse)
         onGetCityByProvince,
+    required TResult Function(CostResponseDataModel costResponse) onGetCost,
   }) {
     return initial();
   }
@@ -539,6 +702,7 @@ class _$_Initial implements _Initial {
     TResult Function(ProvinceResponseDataModel provinceResponse)?
         onGetProvinceData,
     TResult Function(CityResponseDataModel cityResponse)? onGetCityByProvince,
+    TResult Function(CostResponseDataModel costResponse)? onGetCost,
     required TResult orElse(),
   }) {
     if (initial != null) {
@@ -555,6 +719,7 @@ class _$_Initial implements _Initial {
     required TResult Function(_OnError value) onError,
     required TResult Function(_OnGetProvinceData value) onGetProvinceData,
     required TResult Function(_OnGetCityByProvince value) onGetCityByProvince,
+    required TResult Function(_OnGetCost value) onGetCost,
   }) {
     return initial(this);
   }
@@ -567,6 +732,7 @@ class _$_Initial implements _Initial {
     TResult Function(_OnError value)? onError,
     TResult Function(_OnGetProvinceData value)? onGetProvinceData,
     TResult Function(_OnGetCityByProvince value)? onGetCityByProvince,
+    TResult Function(_OnGetCost value)? onGetCost,
     required TResult orElse(),
   }) {
     if (initial != null) {
@@ -625,6 +791,7 @@ class _$_OnLoading implements _OnLoading {
         onGetProvinceData,
     required TResult Function(CityResponseDataModel cityResponse)
         onGetCityByProvince,
+    required TResult Function(CostResponseDataModel costResponse) onGetCost,
   }) {
     return onLoading();
   }
@@ -638,6 +805,7 @@ class _$_OnLoading implements _OnLoading {
     TResult Function(ProvinceResponseDataModel provinceResponse)?
         onGetProvinceData,
     TResult Function(CityResponseDataModel cityResponse)? onGetCityByProvince,
+    TResult Function(CostResponseDataModel costResponse)? onGetCost,
     required TResult orElse(),
   }) {
     if (onLoading != null) {
@@ -654,6 +822,7 @@ class _$_OnLoading implements _OnLoading {
     required TResult Function(_OnError value) onError,
     required TResult Function(_OnGetProvinceData value) onGetProvinceData,
     required TResult Function(_OnGetCityByProvince value) onGetCityByProvince,
+    required TResult Function(_OnGetCost value) onGetCost,
   }) {
     return onLoading(this);
   }
@@ -666,6 +835,7 @@ class _$_OnLoading implements _OnLoading {
     TResult Function(_OnError value)? onError,
     TResult Function(_OnGetProvinceData value)? onGetProvinceData,
     TResult Function(_OnGetCityByProvince value)? onGetCityByProvince,
+    TResult Function(_OnGetCost value)? onGetCost,
     required TResult orElse(),
   }) {
     if (onLoading != null) {
@@ -757,6 +927,7 @@ class _$_OnError implements _OnError {
         onGetProvinceData,
     required TResult Function(CityResponseDataModel cityResponse)
         onGetCityByProvince,
+    required TResult Function(CostResponseDataModel costResponse) onGetCost,
   }) {
     return onError(status);
   }
@@ -770,6 +941,7 @@ class _$_OnError implements _OnError {
     TResult Function(ProvinceResponseDataModel provinceResponse)?
         onGetProvinceData,
     TResult Function(CityResponseDataModel cityResponse)? onGetCityByProvince,
+    TResult Function(CostResponseDataModel costResponse)? onGetCost,
     required TResult orElse(),
   }) {
     if (onError != null) {
@@ -786,6 +958,7 @@ class _$_OnError implements _OnError {
     required TResult Function(_OnError value) onError,
     required TResult Function(_OnGetProvinceData value) onGetProvinceData,
     required TResult Function(_OnGetCityByProvince value) onGetCityByProvince,
+    required TResult Function(_OnGetCost value) onGetCost,
   }) {
     return onError(this);
   }
@@ -798,6 +971,7 @@ class _$_OnError implements _OnError {
     TResult Function(_OnError value)? onError,
     TResult Function(_OnGetProvinceData value)? onGetProvinceData,
     TResult Function(_OnGetCityByProvince value)? onGetCityByProvince,
+    TResult Function(_OnGetCost value)? onGetCost,
     required TResult orElse(),
   }) {
     if (onError != null) {
@@ -900,6 +1074,7 @@ class _$_OnGetProvinceData implements _OnGetProvinceData {
         onGetProvinceData,
     required TResult Function(CityResponseDataModel cityResponse)
         onGetCityByProvince,
+    required TResult Function(CostResponseDataModel costResponse) onGetCost,
   }) {
     return onGetProvinceData(provinceResponse);
   }
@@ -913,6 +1088,7 @@ class _$_OnGetProvinceData implements _OnGetProvinceData {
     TResult Function(ProvinceResponseDataModel provinceResponse)?
         onGetProvinceData,
     TResult Function(CityResponseDataModel cityResponse)? onGetCityByProvince,
+    TResult Function(CostResponseDataModel costResponse)? onGetCost,
     required TResult orElse(),
   }) {
     if (onGetProvinceData != null) {
@@ -929,6 +1105,7 @@ class _$_OnGetProvinceData implements _OnGetProvinceData {
     required TResult Function(_OnError value) onError,
     required TResult Function(_OnGetProvinceData value) onGetProvinceData,
     required TResult Function(_OnGetCityByProvince value) onGetCityByProvince,
+    required TResult Function(_OnGetCost value) onGetCost,
   }) {
     return onGetProvinceData(this);
   }
@@ -941,6 +1118,7 @@ class _$_OnGetProvinceData implements _OnGetProvinceData {
     TResult Function(_OnError value)? onError,
     TResult Function(_OnGetProvinceData value)? onGetProvinceData,
     TResult Function(_OnGetCityByProvince value)? onGetCityByProvince,
+    TResult Function(_OnGetCost value)? onGetCost,
     required TResult orElse(),
   }) {
     if (onGetProvinceData != null) {
@@ -1044,6 +1222,7 @@ class _$_OnGetCityByProvince implements _OnGetCityByProvince {
         onGetProvinceData,
     required TResult Function(CityResponseDataModel cityResponse)
         onGetCityByProvince,
+    required TResult Function(CostResponseDataModel costResponse) onGetCost,
   }) {
     return onGetCityByProvince(cityResponse);
   }
@@ -1057,6 +1236,7 @@ class _$_OnGetCityByProvince implements _OnGetCityByProvince {
     TResult Function(ProvinceResponseDataModel provinceResponse)?
         onGetProvinceData,
     TResult Function(CityResponseDataModel cityResponse)? onGetCityByProvince,
+    TResult Function(CostResponseDataModel costResponse)? onGetCost,
     required TResult orElse(),
   }) {
     if (onGetCityByProvince != null) {
@@ -1073,6 +1253,7 @@ class _$_OnGetCityByProvince implements _OnGetCityByProvince {
     required TResult Function(_OnError value) onError,
     required TResult Function(_OnGetProvinceData value) onGetProvinceData,
     required TResult Function(_OnGetCityByProvince value) onGetCityByProvince,
+    required TResult Function(_OnGetCost value) onGetCost,
   }) {
     return onGetCityByProvince(this);
   }
@@ -1085,6 +1266,7 @@ class _$_OnGetCityByProvince implements _OnGetCityByProvince {
     TResult Function(_OnError value)? onError,
     TResult Function(_OnGetProvinceData value)? onGetProvinceData,
     TResult Function(_OnGetCityByProvince value)? onGetCityByProvince,
+    TResult Function(_OnGetCost value)? onGetCost,
     required TResult orElse(),
   }) {
     if (onGetCityByProvince != null) {
@@ -1101,5 +1283,148 @@ abstract class _OnGetCityByProvince implements RajaongkirState {
   CityResponseDataModel get cityResponse => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
   _$OnGetCityByProvinceCopyWith<_OnGetCityByProvince> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$OnGetCostCopyWith<$Res> {
+  factory _$OnGetCostCopyWith(
+          _OnGetCost value, $Res Function(_OnGetCost) then) =
+      __$OnGetCostCopyWithImpl<$Res>;
+  $Res call({CostResponseDataModel costResponse});
+
+  $CostResponseDataModelCopyWith<$Res> get costResponse;
+}
+
+/// @nodoc
+class __$OnGetCostCopyWithImpl<$Res> extends _$RajaongkirStateCopyWithImpl<$Res>
+    implements _$OnGetCostCopyWith<$Res> {
+  __$OnGetCostCopyWithImpl(_OnGetCost _value, $Res Function(_OnGetCost) _then)
+      : super(_value, (v) => _then(v as _OnGetCost));
+
+  @override
+  _OnGetCost get _value => super._value as _OnGetCost;
+
+  @override
+  $Res call({
+    Object? costResponse = freezed,
+  }) {
+    return _then(_OnGetCost(
+      costResponse == freezed
+          ? _value.costResponse
+          : costResponse // ignore: cast_nullable_to_non_nullable
+              as CostResponseDataModel,
+    ));
+  }
+
+  @override
+  $CostResponseDataModelCopyWith<$Res> get costResponse {
+    return $CostResponseDataModelCopyWith<$Res>(_value.costResponse, (value) {
+      return _then(_value.copyWith(costResponse: value));
+    });
+  }
+}
+
+/// @nodoc
+
+class _$_OnGetCost implements _OnGetCost {
+  const _$_OnGetCost(this.costResponse);
+
+  @override
+  final CostResponseDataModel costResponse;
+
+  @override
+  String toString() {
+    return 'RajaongkirState.onGetCost(costResponse: $costResponse)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other is _OnGetCost &&
+            (identical(other.costResponse, costResponse) ||
+                const DeepCollectionEquality()
+                    .equals(other.costResponse, costResponse)));
+  }
+
+  @override
+  int get hashCode =>
+      runtimeType.hashCode ^ const DeepCollectionEquality().hash(costResponse);
+
+  @JsonKey(ignore: true)
+  @override
+  _$OnGetCostCopyWith<_OnGetCost> get copyWith =>
+      __$OnGetCostCopyWithImpl<_OnGetCost>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() initial,
+    required TResult Function() onLoading,
+    required TResult Function(StatusDataModel status) onError,
+    required TResult Function(ProvinceResponseDataModel provinceResponse)
+        onGetProvinceData,
+    required TResult Function(CityResponseDataModel cityResponse)
+        onGetCityByProvince,
+    required TResult Function(CostResponseDataModel costResponse) onGetCost,
+  }) {
+    return onGetCost(costResponse);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initial,
+    TResult Function()? onLoading,
+    TResult Function(StatusDataModel status)? onError,
+    TResult Function(ProvinceResponseDataModel provinceResponse)?
+        onGetProvinceData,
+    TResult Function(CityResponseDataModel cityResponse)? onGetCityByProvince,
+    TResult Function(CostResponseDataModel costResponse)? onGetCost,
+    required TResult orElse(),
+  }) {
+    if (onGetCost != null) {
+      return onGetCost(costResponse);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Initial value) initial,
+    required TResult Function(_OnLoading value) onLoading,
+    required TResult Function(_OnError value) onError,
+    required TResult Function(_OnGetProvinceData value) onGetProvinceData,
+    required TResult Function(_OnGetCityByProvince value) onGetCityByProvince,
+    required TResult Function(_OnGetCost value) onGetCost,
+  }) {
+    return onGetCost(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Initial value)? initial,
+    TResult Function(_OnLoading value)? onLoading,
+    TResult Function(_OnError value)? onError,
+    TResult Function(_OnGetProvinceData value)? onGetProvinceData,
+    TResult Function(_OnGetCityByProvince value)? onGetCityByProvince,
+    TResult Function(_OnGetCost value)? onGetCost,
+    required TResult orElse(),
+  }) {
+    if (onGetCost != null) {
+      return onGetCost(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _OnGetCost implements RajaongkirState {
+  const factory _OnGetCost(CostResponseDataModel costResponse) = _$_OnGetCost;
+
+  CostResponseDataModel get costResponse => throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  _$OnGetCostCopyWith<_OnGetCost> get copyWith =>
       throw _privateConstructorUsedError;
 }

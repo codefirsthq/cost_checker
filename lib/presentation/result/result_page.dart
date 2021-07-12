@@ -1,4 +1,5 @@
 import 'package:cost_checker/application/location_controller.dart';
+import 'package:cost_checker/application/rajaongkir/rajaongkir_bloc.dart';
 import 'package:cost_checker/domain/core/status_data_model.dart';
 import 'package:cost_checker/domain/cost/cost_request_data_model.dart';
 import 'package:cost_checker/domain/cost/cost_response_data_model.dart';
@@ -6,6 +7,7 @@ import 'package:cost_checker/domain/courier/courier_detail_data_model.dart';
 import 'package:cost_checker/infrastructure/functions/formatter.dart';
 import 'package:cost_checker/infrastructure/rajaongkir/rajaongkir_repository.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
 import 'package:timelines/timelines.dart';
 
@@ -19,40 +21,42 @@ class ResultPage extends StatefulWidget {
 
 class _ResultPageState extends State<ResultPage> {
   final locationController = Get.put(LocationController());
-  late Future<CostResponseDataModel> getCostResponse;
+  late CostRequestDataModel requestDataModel;
   @override
   void initState() {
-    getCostResponse = RajaongkirRepository().getCost(
-      CostRequestDataModel(
-        origin: locationController.getSelectedOriginCity.cityId.toString(),
-        destination:
-            locationController.getSelectedDestiantionCity.cityId.toString(),
-        weight: locationController.getWeight,
-        courier: locationController.getSelectedCourier!.name,
-      ),
+    requestDataModel = CostRequestDataModel(
+      origin: locationController.getSelectedOriginCity.cityId.toString(),
+      destination:
+          locationController.getSelectedDestiantionCity.cityId.toString(),
+      weight: locationController.getWeight,
+      courier: locationController.getSelectedCourier!.name,
     );
 
     super.initState();
   }
 
+  final costBloc = RajaongkirBloc();
+
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder<CostResponseDataModel>(
-        future: getCostResponse,
-        builder: (context, snapshot) {
-          switch (snapshot.connectionState) {
-            case ConnectionState.waiting:
-              return LoadingCostWidget();
-            case ConnectionState.done:
-              if (snapshot.hasError) {
-                return ErrorCostWidget();
-              } else {
-                return CompleteCostWidget(costResponse: snapshot.data);
-              }
-            default:
-              return Center(child: CircularProgressIndicator.adaptive());
-          }
-        });
+    return BlocProvider(
+      create: (context) =>
+          costBloc..add(RajaongkirEvent.getCost(request: requestDataModel)),
+      child: BlocConsumer<RajaongkirBloc, RajaongkirState>(
+        listener: (context, state) {},
+        builder: (context, state) {
+          return state.maybeMap(orElse: () {
+            return Container();
+          }, onGetCost: (e) {
+            return CompleteCostWidget(costResponse: e.costResponse);
+          }, onLoading: (e) {
+            return LoadingCostWidget();
+          }, onError: (e) {
+            return ErrorCostWidget();
+          });
+        },
+      ),
+    );
   }
 }
 
