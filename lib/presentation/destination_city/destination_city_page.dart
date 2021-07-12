@@ -1,12 +1,11 @@
 import 'package:cost_checker/application/location_controller.dart';
+import 'package:cost_checker/application/rajaongkir/rajaongkir_bloc.dart';
 import 'package:cost_checker/domain/city/city_data_model.dart';
-import 'package:cost_checker/domain/city/city_response_data_model.dart';
 import 'package:cost_checker/domain/core/status_data_model.dart';
 import 'package:cost_checker/domain/province/province_data_model.dart';
-import 'package:cost_checker/domain/province/province_response_data_model.dart';
-import 'package:cost_checker/infrastructure/rajaongkir/rajaongkir_repository.dart';
 import 'package:cost_checker/presentation/weight/weight_page.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
 
 class DestinationCityPage extends StatefulWidget {
@@ -18,10 +17,10 @@ class DestinationCityPage extends StatefulWidget {
 }
 
 class _DestinationCityPageState extends State<DestinationCityPage> {
-  String provinceId = "1";
   late CityDataModel _selectedCity;
-  Future<ProvinceResponseDataModel> provinceFuture =
-      RajaongkirRepository().getProvinceData();
+
+  final provinceBLoc = RajaongkirBloc();
+  final cityBloc = RajaongkirBloc();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -79,51 +78,46 @@ class _DestinationCityPageState extends State<DestinationCityPage> {
                           style: TextStyle(fontSize: 14),
                         ),
                         SizedBox(height: 5),
-                        FutureBuilder<ProvinceResponseDataModel>(
-                          future: provinceFuture,
-                          builder: (context, snapshot) {
-                            switch (snapshot.connectionState) {
-                              case ConnectionState.waiting:
-                                return loadingDropdownButton();
-                              case ConnectionState.done:
-                                if (snapshot.hasError) {
-                                  return errorDropdown(
-                                      snapshot.error as StatusDataModel);
-                                } else {
-                                  return DropdownButtonFormField<
-                                      ProvinceDataModel>(
-                                    isExpanded: true,
-                                    items: snapshot.data!.results!
-                                        .map((e) => DropdownMenuItem(
-                                              child: Text(e.province!),
-                                              value: e,
-                                            ))
-                                        .toList(),
-                                    onChanged: (e) {
-                                      //fungsi ini akan mentrigger city,
-                                      print(e!.provinceId);
-                                      setState(() {
-                                        provinceId = e.provinceId!;
-                                      });
-                                    },
-                                    decoration: InputDecoration(
-                                      hintText: "Choose province",
-                                      enabledBorder: OutlineInputBorder(
-                                          borderSide: BorderSide(
-                                              color: Colors.blue, width: 2),
-                                          borderRadius:
-                                              BorderRadius.circular(4)),
-                                      contentPadding:
-                                          EdgeInsets.symmetric(horizontal: 10),
-                                      floatingLabelBehavior:
-                                          FloatingLabelBehavior.never,
-                                    ),
-                                  );
-                                }
-                              default:
-                                return loadingDropdownButton();
-                            }
-                          },
+                        BlocProvider(
+                          create: (context) => provinceBLoc
+                            ..add(RajaongkirEvent.getProvinceListData()),
+                          child: BlocConsumer<RajaongkirBloc, RajaongkirState>(
+                            listener: (context, state) {},
+                            builder: (context, state) {
+                              return state.maybeMap(
+                                  orElse: () => SizedBox(),
+                                  onLoading: (e) => loadingDropdownButton(),
+                                  onError: (e) => errorDropdown(e.status),
+                                  onGetProvinceData: (e) =>
+                                      DropdownButtonFormField<
+                                          ProvinceDataModel>(
+                                        isExpanded: true,
+                                        items: e.provinceResponse.results!
+                                            .map((e) => DropdownMenuItem(
+                                                  child: Text(e.province!),
+                                                  value: e,
+                                                ))
+                                            .toList(),
+                                        onChanged: (e) {
+                                          cityBloc.add(RajaongkirEvent
+                                              .getCityByProvinceId(
+                                                  provinceId: e!.provinceId!));
+                                        },
+                                        decoration: InputDecoration(
+                                          hintText: "Choose province",
+                                          enabledBorder: OutlineInputBorder(
+                                              borderSide: BorderSide(
+                                                  color: Colors.blue, width: 2),
+                                              borderRadius:
+                                                  BorderRadius.circular(4)),
+                                          contentPadding: EdgeInsets.symmetric(
+                                              horizontal: 10),
+                                          floatingLabelBehavior:
+                                              FloatingLabelBehavior.never,
+                                        ),
+                                      ));
+                            },
+                          ),
                         )
                       ],
                     ),
@@ -136,48 +130,48 @@ class _DestinationCityPageState extends State<DestinationCityPage> {
                           style: TextStyle(fontSize: 14),
                         ),
                         SizedBox(height: 5),
-                        FutureBuilder<CityResponseDataModel>(
-                          future: RajaongkirRepository()
-                              .getCityByProvinceId(provinceId),
-                          builder: (context, snapshot) {
-                            switch (snapshot.connectionState) {
-                              case ConnectionState.waiting:
-                                return loadingDropdownButton();
-                              case ConnectionState.done:
-                                if (snapshot.hasError) {
-                                  return errorDropdown(
-                                      snapshot.error as StatusDataModel);
-                                } else {
-                                  return DropdownButtonFormField<CityDataModel>(
-                                    isExpanded: true,
-                                    items: snapshot.data!.results!
-                                        .map((e) => DropdownMenuItem(
-                                              child: Text(
-                                                  e.type! + " " + e.cityName!),
-                                              value: e,
-                                            ))
-                                        .toList(),
-                                    onChanged: (e) {
-                                      _selectedCity = e!;
-                                    },
-                                    decoration: InputDecoration(
-                                      hintText: "Choose city",
-                                      enabledBorder: OutlineInputBorder(
-                                          borderSide: BorderSide(
-                                              color: Colors.blue, width: 2),
-                                          borderRadius:
-                                              BorderRadius.circular(4)),
-                                      contentPadding:
-                                          EdgeInsets.symmetric(horizontal: 10),
-                                      floatingLabelBehavior:
-                                          FloatingLabelBehavior.never,
-                                    ),
-                                  );
-                                }
-                              default:
-                                return loadingDropdownButton();
-                            }
-                          },
+                        BlocProvider(
+                          create: (context) => cityBloc,
+                          child: BlocConsumer<RajaongkirBloc, RajaongkirState>(
+                            listener: (context, state) {},
+                            builder: (context, state) {
+                              return state.maybeMap(
+                                  orElse: () {
+                                    return SizedBox();
+                                  },
+                                  onLoading: (e) => loadingDropdownButton(),
+                                  onError: (e) => errorDropdown(e.status),
+                                  onGetCityByProvince: (e) {
+                                    return DropdownButtonFormField<
+                                        CityDataModel>(
+                                      isExpanded: true,
+                                      items: e.cityResponse.results!
+                                          .map((e) => DropdownMenuItem(
+                                                child: Text(e.type! +
+                                                    " " +
+                                                    e.cityName!),
+                                                value: e,
+                                              ))
+                                          .toList(),
+                                      onChanged: (e) {
+                                        _selectedCity = e!;
+                                      },
+                                      decoration: InputDecoration(
+                                        hintText: "Choose city",
+                                        enabledBorder: OutlineInputBorder(
+                                            borderSide: BorderSide(
+                                                color: Colors.blue, width: 2),
+                                            borderRadius:
+                                                BorderRadius.circular(4)),
+                                        contentPadding: EdgeInsets.symmetric(
+                                            horizontal: 10),
+                                        floatingLabelBehavior:
+                                            FloatingLabelBehavior.never,
+                                      ),
+                                    );
+                                  });
+                            },
+                          ),
                         )
                       ],
                     ),
