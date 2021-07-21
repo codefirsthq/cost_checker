@@ -6,6 +6,8 @@ import 'package:cost_checker/domain/cost/cost_response_data_model.dart';
 import 'package:cost_checker/domain/courier/courier_detail_data_model.dart';
 import 'package:cost_checker/infrastructure/functions/formatter.dart';
 import 'package:cost_checker/infrastructure/rajaongkir/rajaongkir_repository.dart';
+import 'package:cost_checker/presentation/dashboard/dashboard_page.dart';
+import 'package:cost_checker/presentation/origin_city/origin_city_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
@@ -68,8 +70,14 @@ class LoadingCostWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: CircularProgressIndicator.adaptive(),
+      body: Column(
+        children: [
+          Expanded(child: Image.asset('assets/images/cf_sortir.png')),
+          Padding(
+            padding: const EdgeInsets.all(15.0),
+            child: CircularProgressIndicator.adaptive(),
+          ),
+        ],
       ),
     );
   }
@@ -225,7 +233,21 @@ class CompleteCostWidget extends StatelessWidget {
                           ],
                         ),
                       );
-                    }))
+                    })),
+            Padding(
+              padding:
+                  const EdgeInsets.symmetric(vertical: 10.0, horizontal: 20),
+              child: Container(
+                  width: double.infinity,
+                  height: 45,
+                  child: ElevatedButton(
+                    child: Text("MAKE NEW CALCULATION"),
+                    onPressed: () {
+                      Get.offNamedUntil(OriginCityPage.TAG,
+                          ModalRoute.withName(DashboardPage.TAG));
+                    },
+                  )),
+            )
           ],
         ),
       ),

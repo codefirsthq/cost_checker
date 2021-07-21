@@ -1,5 +1,6 @@
 import 'package:cost_checker/application/location_controller.dart';
 import 'package:cost_checker/presentation/result/result_page.dart';
+import 'package:cost_checker/presentation/widgets/page_title_widget.dart';
 import 'package:cost_checker/utils/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -22,17 +23,9 @@ class _ChooseCourierPageState extends State<ChooseCourierPage> {
       body: SingleChildScrollView(
         child: Column(
           children: [
+            PageTitle(title: "CHOOSE COURIER"),
             Container(
-              padding: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
-              child: Text(
-                "Courier List",
-                style: TextStyle(
-                  fontSize: 40,
-                ),
-              ),
-            ),
-            Container(
-                height: Get.size.width / 2,
+                height: 150,
                 child: Image.asset('assets/images/cf_arrived.png')),
             SizedBox(height: 20),
             ListView.builder(
